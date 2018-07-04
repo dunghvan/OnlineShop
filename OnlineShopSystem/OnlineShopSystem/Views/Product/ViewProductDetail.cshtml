@@ -1,0 +1,200 @@
+﻿@model Model.EF.Product
+
+@{
+    var category = (Model.EF.ProductCategory)ViewBag.Category;
+    var relatedList = (List<Model.EF.Product>)ViewBag.RelatedProList;
+    ViewBag.Title = "BanBan | (" + category.Name + ") " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section topCss{
+    <style>
+        #viewcount {
+            font-size: 13px !important;
+            line-height: 19px !important;
+            color: #0066c0;
+        }
+
+        #detail_header.tr {
+            height: 10px;
+        }
+
+        .color-secondary {
+            color: #555 !important;
+            font-size: 13px;
+        }
+
+        .color-three {
+            color: #B12704 !important;
+            font-size: 19px;
+        }
+
+        .color-four {
+            color: #B12704 !important;
+            font-size: 13px !important;
+            line-height: 19px !important;
+        }
+
+        .zaiko {
+            font-size: 17px !important;
+            line-height: 1.255 !important;
+            color: #008a00 !important;
+        }
+
+        .product_detail {
+            list-style: disc;
+            word-wrap: break-word;
+            font-size: 13px;
+            line-height: 19px;
+            box-sizing: border-box;
+            color: #111;
+        }
+    </style>
+    <link href="~/Assets/Client/ZoomImg/style.css" rel="stylesheet" />
+    <script src="~/Assets/Client/ZoomImg/medium-lightbox.js"></script>
+
+}
+@section jsFooter{
+
+  
+
+}
+
+<div class="content">
+    <div class="content_top">
+        <div style="font-size:small"><a href="/">ホーム</a> >> <a href="/san-pham/@category.MetaTitle-@category.ID">@category.Name</a></div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        <div class="cont-desc span_1_of_2">
+            <div class="product-details">
+                <div class="grid images_3_of_2">
+                    <div id="container">
+                        <div id="products_example">
+                            <div id="products">
+                                @*<div class="slides_container">
+                                    <a href="#" target="_blank"><img src="@Model.Image" width="400px" /></a>
+
+                                </div>*@
+                                <figure class="slides_container zoom-effect">
+                                    <div class="slides_container">
+
+                                        <img class="img" data-width="600" data-height="600" width="400px" src="@Model.Image">
+                                    </div>
+                                </figure>
+                                    <script>
+		                                MediumLightbox('figure.zoom-effect', {
+			                                //margin:300
+		                                });
+	                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="desc span_3_of_2">
+                    <table id="detail_header">
+                        <tr>
+                            <td><h2>@Model.Name </h2></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="viewcount">
+                                    @Model.ViewCount 件のカスタマーレビュー
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <hr />
+                    <div class="price">
+                        @if (Model.PromotionPrice.HasValue)
+                        {
+                            var per = (Model.PromotionPrice / Model.Price) * 100;
+                            <table class="table col-lg-3" id="detail_header">
+                                <tr class="color-secondary">
+                                    <td align="right"><div style="margin-bottom:0">価格:</div></td>
+                                    <td><div>&nbsp;￥&nbsp;<s>@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") : "Lien He")</s></div> </td>
+                                </tr>
+                                <tr class="color-three">
+                                    <td><div>セール価格: </div></td>
+                                    <td><div><span>&nbsp;￥ &nbsp;@Model.PromotionPrice</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td class="color-secondary" align="right"><div style="margin-bottom:0">OFF:</div></td>
+                                    <td class="color-four"><div>&nbsp;￥&nbsp;@(Model.Price - Model.PromotionPrice) (@per.Value.ToString("N0")%)</div></td>
+                                </tr>
+                            </table>
+
+                        }
+                        else
+                        {
+                            <p>価格: <span>￥&nbsp;@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") : "Lien He")</span></p>
+                        }
+                    </div>
+                    <div class="zaiko">残り<span class="color-three">@Model.Quanlity 点</span> ご注文はお早めに</div>
+                    <p class="product_detail">@Html.Raw(Model.Detail)</p>
+                    <div class="share-desc">
+                        <div class="share">
+                            <p>シェア:</p>
+                            <ul>
+                                <li><a href="#"><img src="~/Assets/Client/images/facebook.png" alt="" /></a></li>
+                                <li><a href="#"><img src="~/Assets/Client/images/twitter.png" alt="" /></a></li>
+                            </ul>
+                        </div>
+                        <div class="button"><span><a href="/them-vao-gio?productID=@Model.ID&quan=1">カートに入れる</a></span></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="wish-list">
+                        <ul>
+                            <li class="wish"><a href="#">Them vao ua thich</a></li>
+                            <li class="compare"><a href="#">So sanh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+           
+
+        </div>
+
+        <div class="rightsidebar" style="width:100%">
+            @{ Html.RenderAction("ProductCategory", "Product");}
+
+        </div>
+    </div>
+
+    <div class="content_bottom">
+        <div class="heading">
+            <h3>
+                この商品に関連するスポンサー プロダクト
+            </h3>
+        </div>
+        <div class="see">
+            <p><a href="/san-pham">Xem tat ca</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @foreach (var item in relatedList)
+        {
+            var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@url"><img width-id="200px" src="@item.Image" alt=""></a>
+                <a href="@url"><h2>@item.Name</h2></a>
+                <div class="price" style="border:none">
+                    <div class="add-cart" style="float:none">
+                        <h4><a href="/them-vao-gio?productID=@Model.ID&quan=1">Them vao gio hang</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+

@@ -1,0 +1,28 @@
+﻿@model List<OnlineShopSystem.Models.CartItem>
+<div class="cart">
+    <p>
+       @Html.Label(StaticResources.Resources.WellcomeString) <span>@Html.Label(StaticResources.Resources.Cart):</span><div id="dd" class="wrapper-dropdown-2">
+    @ViewBag.SumOfItem item(s) - $@ViewBag.Total
+    @if (Model.Count > 0)
+    {
+        <ul class="dropdown">
+            @foreach(var item in Model)
+            {
+                var url = "/chi-tiet/" + item.Product.MetaTitle + "-" + item.Product.ID;
+                 <li><a href="@url"> @item.Product.Name (@item.Quanlity)</a> </li>
+            }
+           
+        </ul>
+    }
+    else
+    {
+        <br/>
+        <ul class="dropdown">
+            <li>you have no items in your Shopping cart</li>
+        </ul>
+    }
+
+</div>
+    </p>
+</div>
+

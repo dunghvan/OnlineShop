@@ -1,0 +1,145 @@
+﻿@using BotDetect.Web.UI.Mvc;
+@model OnlineShopSystem.Models.RegisterModel
+
+@{
+    ViewBag.Title = "バンバン会員登録";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section topCss{
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+    <style>
+        .remind {
+            color:darkgray;
+            font-weight: normal;
+            font-size: 0.9em;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .positiontitle {
+            font-weight: bold;
+            font-size: 1em;
+        }
+    </style>
+
+    <link href="~/Assets/Client/css/bootstrap.css" rel="stylesheet" />
+}
+<div class="content">
+    <div class="row">
+        <div class="container">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div class="positiontitle"><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;バンバン会員登録</div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-7">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "(例) banban_member@gmail.com" })
+                            <span class="remind">＊<半角英数字><br />＊他の会員が登録済みのメールアドレスは登録できません。</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-danger">＊必須</span>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-pull-8">
+                        @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control ", @placeholder = "(例) banban123" })
+                            <span class="remind">＊<8文字以上・半角英数字> 数字だけにすることはできません。</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-danger">＊必須</span>
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control col-md-8" })
+                            <span class="remind">＊<6文字以上半角英数字><br />＊ユーザID」と同じものは登録できません<br />＊第三者によるログインを防ぐために、できるだけ複雑なものを設定してください。</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-danger">＊必須</span>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-danger">＊必須</span>
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="positiontitle">お客様の基本情報</div>
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-8", @placeholder = "(例) ホアン　バン　ズン" })
+                            <span class="remind">＊ご自身の氏名をお間違えないように登録してください。</span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-danger">＊必須</span>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @placeholder = "(例) banban123" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+                        <div class="col-md-7">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="同意して登録" class="btn btn-success" />
+                            <input type="button" value="リセット" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

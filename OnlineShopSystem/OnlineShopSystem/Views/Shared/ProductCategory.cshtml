@@ -1,0 +1,12 @@
+﻿@model List<Model.EF.ProductCategory>
+
+    
+        <ul>
+            <h3>@Html.Label(StaticResources.Resources.lblListCategory)</h3>
+            @foreach(var item in Model)
+            {
+                <li><a href="/san-pham/@item.MetaTitle-@item.ID"><span style="color: #0066c0;">@item.Name</span></a></li>
+            }
+            
+            
+        </ul>

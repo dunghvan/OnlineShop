@@ -1,0 +1,107 @@
+﻿@model List<OnlineShopSystem.Models.CartItem>
+@{
+    /**/
+
+    ViewBag.Title = StaticResources.Resources.ShopCartTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+
+    <script src="/Assets/Client/js/controller/cartController.js"></script>
+}
+@section topCss{
+    <link href="~/Assets/Client/css/bootstrap.css" rel="stylesheet" />
+    <style>
+        .numberPrice{
+            font-weight: 700 !important;
+            color: #B12704 !important;
+        }
+        #btnPayment {
+            cursor: pointer;
+            -webkit-appearance: button;
+            background: #f0c14b;
+            border-color: #a88734;
+        }
+        #proName {
+            color: #0066c0;
+        }
+        #total {
+            font-weight: 700 !important;
+            text-align: right !important;
+            font-size: 17px !important;
+            line-height: 1.255 !important;
+        }
+        #shopCart {
+            font-weight: 700;
+            font-size: 21px;
+            line-height: 1.3;
+        }
+    </style>
+}
+<div class="content">
+    
+    <div class="section group">
+        @if (Model.Count > 0)
+    {
+        <h2 id="shopCart">@Html.Label(StaticResources.Resources.ShoppingCart)</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>@Html.Label(StaticResources.Resources.Quanlity)</td>
+                    <td>@Html.Label(StaticResources.Resources.Price)</td>
+                    <td>@Html.Label(StaticResources.Resources.ToMoney)</td>
+                    <td>@Html.Label(StaticResources.Resources.Delete)</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{ decimal total = 0;}
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.Product.Image" width="100" /></td>
+                    <td id="proName">@item.Product.Name</td>
+
+                    <td>
+                        <input type="text" class="txtQuanlity" data-id="@item.Product.ID" value="@item.Quanlity" />
+                        <button class="plusQuanlity" data-id="@item.Product.ID">+</button>
+                        <button class="subQuanlity" data-id="@item.Product.ID">-</button>
+                    </td>
+                    <td class="numberPrice">
+                        ￥&nbsp @item.Product.Price.GetValueOrDefault(0).ToString("N0")
+
+                    </td>
+                    <td class="numberPrice">￥&nbsp @((item.Product.Price.GetValueOrDefault(0) * item.Quanlity).ToString("N0"))</td>
+                    <td><a href="#" class="btn-delete" data-id="@item.Product.ID">@Html.Label(StaticResources.Resources.lblCancel)</a></td>
+
+                    @{total = total + (item.Product.Price.GetValueOrDefault(0) * item.Quanlity);}
+                </tr>
+
+        }
+
+                
+
+                <tr>
+                    <td colspan="6" id="total">@Html.Label(StaticResources.Resources.Total) 
+                        <span style="font-weight:700!important;color:#B12704!important">￥&nbsp @total.ToString("N0") </span>
+                    </td>
+                    
+                </tr>
+
+
+            </tbody>
+        </table>
+        <button id="btnContinue" class="btn">@Html.Label(StaticResources.Resources.ContBuy)</button>
+        <button id="btnUpdate" class="btn">@Html.Label(StaticResources.Resources.UpDaCart)</button>
+        <button id="btnDeleteAll" class="btn">@Html.Label(StaticResources.Resources.DeleteCart)</button>
+        <button id="btnPayment" class="btn">@Html.Label(StaticResources.Resources.Payment)</button>
+}
+else
+{
+    <span class="alert alert-warning">@Html.Label(StaticResources.Resources.NullCart)</span>
+}
+
+    </div>
+</div>

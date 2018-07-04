@@ -1,0 +1,24 @@
+﻿@model List<Model.EF.Menu>
+
+<div class="account_desc">
+
+    <ul>
+        <li style="display:inline-block">
+            @using (Html.BeginForm("ChangeCulture", "Base"))
+        {
+            @Html.Hidden("returnUrl", Request.RawUrl)
+            @Html.DropDownList("ddlCulture", new SelectList(new[] {
+            new {value="en", text=StaticResources.Resources.English},
+            new {value="jp", text=StaticResources.Resources.Japanese},
+
+
+        }, "value", "text", Session["CurrentCulture"]), new { onchange = "this.form.submit();" })
+    }
+        </li>
+        @foreach (var item in Model)
+    {
+        <li><a href="@item.Link" targer="@item.Target">@item.Text</a></li>
+}
+
+    </ul>
+</div>

@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    @RenderSection("topCss", required: false)
+    <link href="~/Assets/Client/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="~/Assets/Client/js/jquery-1.11.3.min.js"></script>
+    <script src="/Assets/Client/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="~/Assets/Client/js/move-top.js"></script>
+    <script type="text/javascript" src="~/Assets/Client/js/easing.js"></script>
+    <script type="text/javascript" src="~/Assets/Client/js/startstop-slider.js"></script>
+    <link rel="icon" href="~/Assets/Client/images/hoangdung.ico" />
+
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="headertop_desc">
+                <div class="call">
+                    <p>@Html.Label(StaticResources.Resources.ContactUS)<span class="number">080-8888-9999</span></p>
+                </div>
+               @{Html.RenderAction("TopMenu", "Home");}
+                <div class="clear"></div>
+            </div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/" ref="nofollow"><img src="/Assets/Client/images/logo.png" alt="" /></a>
+                </div>
+                @{Html.RenderAction("InCart", "Cart");}
+                <script type="text/javascript">
+                    function DropDown(el) {
+                        this.dd = el;
+                        this.initEvents();
+                    }
+                    DropDown.prototype = {
+                        initEvents: function () {
+                            var obj = this;
+
+                            obj.dd.on('click', function (event) {
+                                $(this).toggleClass('active');
+                                event.stopPropagation();
+                            });
+                        }
+                    }
+
+                    $(function () {
+
+                        var dd = new DropDown($('#dd'));
+
+                        $(document).click(function () {
+                            // all dropdowns
+                            $('.wrapper-dropdown-2').removeClass('active');
+                        });
+
+                    });
+
+                </script>
+               
+                <div class="clear"></div>
+            </div>
+            <div class="header_bottom">
+                @*
+                    Big menu
+                    *@
+                @{Html.RenderAction("BigMenu", "Home"); }
+                <div class="search_box" id="autocompleteSearch">
+                    <form action="/tim-kiem" method="get">
+                        <input type="text" id="txtKeyword" name="keyword" placeholder="Search"><input type="submit" value="">
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @RenderSection("slide", required: false)
+            
+        </div>
+        <div class="main">
+           @RenderBody()
+        </div>
+    </div>
+    @{Html.RenderAction("Footer", "Home");}
+    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    <script src="/Assets/Client/js/controller/BaseController.js"></script>
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>
+

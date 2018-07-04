@@ -1,0 +1,130 @@
+﻿@model List<OnlineShopSystem.Models.CartItem>
+@{
+    /**/
+
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+
+    <script src="/Assets/Client/js/controller/cartController.js"></script>
+    }
+    @section topCss{
+        <link href="~/Assets/Client/css/bootstrap.css" rel="stylesheet" />
+        <style>
+            .numberPrice {
+                font-weight: 700 !important;
+                color: #B12704 !important;
+            }
+
+            #btnPayment {
+                cursor: pointer;
+                -webkit-appearance: button;
+                background: #f0c14b;
+                border-color: #a88734;
+            }
+
+            #proName {
+                color: #0066c0;
+            }
+
+            #total {
+                font-weight: 700 !important;
+                text-align: right !important;
+                font-size: 17px !important;
+                line-height: 1.255 !important;
+            }
+
+            #shopCart {
+                font-weight: 700;
+                font-size: 21px;
+                line-height: 1.3;
+            }
+        </style>
+    
+}
+        <div class="content">
+
+            <div class="section group">
+                @if (Model.Count > 0)
+        {
+            <h2 id="shopCart">Payment</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@Html.Label(StaticResources.Resources.Quanlity)</td>
+                        <td>@Html.Label(StaticResources.Resources.Price)</td>
+                        <td>@Html.Label(StaticResources.Resources.ToMoney)</td>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{ decimal total = 0;}
+                    @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.Product.Image" width="100" /></td>
+                    <td id="proName">@item.Product.Name</td>
+
+                    <td>
+                        <input type="text" style="border:none" readonly class="txtQuanlity" data-id="@item.Product.ID" value="@item.Quanlity" />
+                    </td>
+                    <td class="numberPrice">
+                        ￥&nbsp @item.Product.Price.GetValueOrDefault(0).ToString("N0")
+
+                    </td>
+                    <td class="numberPrice">￥&nbsp @((item.Product.Price.GetValueOrDefault(0) * item.Quanlity).ToString("N0"))</td>
+
+                    @{total = total + (item.Product.Price.GetValueOrDefault(0) * item.Quanlity);}
+                </tr>
+
+    }
+
+
+
+                    <tr>
+                        <td colspan="6" id="total">
+                            @Html.Label(StaticResources.Resources.Total)
+                        <span style="font-weight:700!important;color:#B12704!important">￥&nbsp @total.ToString("N0") </span>
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+       
+
+}
+
+
+            </div>
+            <div class="section group">
+                <div class="col-md-6">
+                    @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label>Nguoi Nhan</label>
+                    <input name="shipName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Dien Thoai</label>
+                    <input name="phone" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Dia Chi</label>
+                    <input name="address" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input name="email" class="form-control" />
+                </div>
+                <button type="submit" class="btn">Submit</button>
+    }
+                </div>
+
+            </div>
+        </div>

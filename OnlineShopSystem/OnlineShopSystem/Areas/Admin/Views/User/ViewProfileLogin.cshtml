@@ -1,0 +1,44 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "ViewProfileLogin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@section header{
+
+}
+
+<div class="content"  style="font-size:medium">
+    <div class="header">管理者： <strong>@Model.UserName</strong> &nbsp;お疲れ様です！</div>
+    <hr />
+    <div class="col-md-3" style="padding-left:62px">
+        <img src="@Model.Image" /><br />
+        <hr/>
+
+    </div>
+    <div class="col-md-9">
+        <table class="table" id="profileTable" style="margin-top:20px">
+            <tr>
+                <td class="col-lg-4">名前</td>
+                <td height="50px">@Model.Name</td>
+            </tr>
+            <tr>
+                <td>メールアドレス</td>
+                <td height="50px">@Model.Mail</td>
+            </tr>
+            <tr>
+                <td>携帯番号</td>
+                <td height="50px">@Model.Phone</td>
+            </tr>
+            <tr>
+                <td>住所</td>
+                <td height="50px">@Model.Address</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "BanBanオンラインショッピング";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var slides = (List<Model.EF.Slide>)ViewBag.Slides;
+    var newProduct = (List<Model.EF.Product>)ViewBag.newProduct;
+    var HotProducts = (List<Model.EF.Product>)ViewBag.HotProducts;
+}
+@section slide{
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            @{ Html.RenderAction("ProductCategory", "Product");}
+        </div>
+    </div>
+    <div class="header_bottom_right">
+            <div class="slider">
+                <div id="slider">
+                    <div id="mover">
+                        <div id="slide-1" class="slide">
+                            <div class="slider-img">
+                                <a href="preview.html"><img src="@slides[0].Image" alt="learn more" /></a>
+                            </div>
+                            <div class="slider-text">
+                                <h2>ゴールデンウイーク<br><span>セール</span></h2>
+                                <h2>50% 値下げ</h2>
+                                <div class="features_list">
+                                    <h4>ゴールデンウイークに開催されるイベント情報をチェック</h4>
+                                </div>
+                                <a href="preview.html" class="button">直ぐに買う</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="slide">
+                            <div class="slider-text">
+                                <h2>ゴールデンウイーク<br><span>セール</span></h2>
+                                <h2>50% 値下げ</h2>
+                                <div class="features_list">
+                                    <h4>ゴールデンウイークに開催されるイベント情報をチェック</h4>
+                                </div>
+                                <a href="preview.html" class="button">直ぐに買う</a>
+                            </div>
+                            <div class="slider-img">
+                                <a href="preview.html"><img src="@slides[1].Image" alt="learn more" /></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="slide">
+                            <div class="slider-img">
+                                <a href="preview.html"><img src="@slides[1].Image" alt="learn more" /></a>
+                            </div>
+                            <div class="slider-text">
+                                <h2>ゴールデンウイーク<br><span>セール</span></h2>
+                                <h2>50% 値下げ</h2>
+                                <div class="features_list">
+                                    <h4>ゴールデンウイークに開催されるイベント情報をチェック</h4>
+                                </div>
+                                <a href="preview.html" class="button">直ぐに買う</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+       
+        </div>
+    </div>
+        <div class="clear"></div>
+    </div>
+    }
+
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3 style="color:#444!important">@Html.Label(StaticResources.Resources.lblNewPro)</h3>
+        </div>
+        <div class="see">
+            <p><a href="/san-pham">@Html.Label(StaticResources.Resources.lblSeeAll)</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+   
+
+
+    <div class="section group">
+        @foreach (var item in newProduct)
+    {
+
+
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="grid_1_of_4 images_1_of_4">
+            <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+            <a href="@url"><h2 class="display_proname">@item.Name</h2></a>
+            <div class="price-details">
+                <div class="price-number">
+                    <p><span class="rupees">￥@(item.Price.HasValue ? item.Price.Value.ToString() : "Lien He")</span></p>
+                </div>
+                <div class="add-cart">
+                    <h4><a href="/them-vao-gio?productID=@item.ID&quan=1">@Html.Label(StaticResources.Resources.addToCart)</a></h4>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+
+
+
+
+}
+    </div>
+    <div class="content_bottom">
+        <div class="heading">
+            <h3 style="color:#444!important">@Html.Label(StaticResources.Resources.lblNo1)</h3>
+        </div>
+        <div class="see">
+            <p><a href="#">@Html.Label(StaticResources.Resources.lblSeeAll)</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @foreach (var item1 in HotProducts)
+        {
+            var url2 = "/chi-tiet/" + item1.MetaTitle + "-" + item1.ID;
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@url2"><img width-id="200px" src="@item1.Image" alt="@item1.Name" /></a>
+                <a href="@url2"><h2 class="display_proname">@item1.Name </h2></a>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">￥@item1.Price</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/them-vao-gio?productID=@item1.ID&quan=1">@Html.Label(StaticResources.Resources.addToCart)</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+</div>
