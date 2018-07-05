@@ -3,5 +3,5 @@ Online Shop System
 /Admin/Login
 Admin Account Login: 
 + Username: Admin
-+ Password: 123456
++ Password: 12345
 
